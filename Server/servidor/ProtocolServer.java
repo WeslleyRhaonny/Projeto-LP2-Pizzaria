@@ -1,4 +1,4 @@
-package Server;
+package Server.servidor;
 
 import java.io.*;
 import java.net.Socket;
@@ -29,6 +29,17 @@ public class ProtocolServer implements Runnable {
                         break;
                     }
 
+                    out.writeUTF((TratamentProtocol.solicitaPedido(fromClient)));
+
+                    /*
+                    if(TratamentProtocol.solicitaPedido(fromClient)){
+                        out.writeUTF("Pedido confirmado!");
+                    }else{
+                        out.writeUTF("Pedido negado!");
+                    }*/
+
+
+                    /*
                     ProtocoloTratamento prot = new ProtocoloTratamento();
 
                     boolean confirmacao = prot.tratamentoPedido(fromClient);
@@ -38,6 +49,7 @@ public class ProtocolServer implements Runnable {
                     else{
                         out.writeUTF("Erro No pedido, faça novamente");
                     }
+                     */
                 }
             }
             in.close();
