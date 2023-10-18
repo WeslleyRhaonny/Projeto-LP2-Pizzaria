@@ -25,11 +25,19 @@ public class ProtocolServer implements Runnable {
             while (!s.isClosed()) {
                 if (in.available() > 0) {
                     String fromClient = in.readUTF();
-                    String teste = "oi";
                     if (fromClient.equals("exit")) {
                         break;
                     }
-                    out.writeUTF(protocol(fromClient));
+
+                    ProtocoloTratamento prot = new ProtocoloTratamento();
+
+                    boolean confirmacao = prot.tratamentoPedido(fromClient);
+                    if(confirmacao == true){
+                        out.writeUTF("Pedido Confirmado");
+                    }
+                    else{
+                        out.writeUTF("Erro No pedido, faça novamente");
+                    }
                 }
             }
             in.close();
