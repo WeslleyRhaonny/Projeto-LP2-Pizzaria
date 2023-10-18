@@ -25,7 +25,8 @@ public class ProtocolServer implements Runnable {
             while (!s.isClosed()) {
                 if (in.available() > 0) {
                     String fromClient = in.readUTF();
-                    if (fromClient.equals("exiit")) {
+                    String teste = "oi";
+                    if (fromClient.equals("exit")) {
                         break;
                     }
                     out.writeUTF(protocol(fromClient));
