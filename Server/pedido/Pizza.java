@@ -6,6 +6,7 @@ public class Pizza {
     ArrayList<String> sabores = new ArrayList<>();
     String sabor;
     static double valor = 0;
+    static double multiplier = 1;
 
     public Pizza(){
         sabores.add("Frango");
@@ -13,10 +14,14 @@ public class Pizza {
         sabores.add("Calabresa");
     }
 
-    public boolean selectSabor(String sabor){
+    public void setMultiplier(double multiplier){
+        valor = valor * multiplier;
+    }
+
+    public boolean selectSabor(String sabor, double multiplicador){
         if(sabores.contains(sabor)){
             this.sabor = sabor;
-            this.valor = setValor(sabor);
+            Pizza.valor = setValor(sabor) * multiplicador;
             return true;
         }else {
             return false;

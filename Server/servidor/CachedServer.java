@@ -1,7 +1,5 @@
 package Server.servidor;
 
-import Server.servidor.ProtocolServer;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,19 +12,28 @@ public class CachedServer {
         int maxThreads = 10;
 
         Executor threadPool = Executors.newFixedThreadPool(maxThreads);
+        ServerSocket serverSocket = null;
 
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(port);
             System.out.println("Servidor TCP iniciado na porta " + port);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
+                System.out.println(clientSocket.hashCode());
                 System.out.println("Novo cliente conectado: " + clientSocket.getInetAddress());
 
                 // Utilize o pool de threads para lidar com o cliente
                 threadPool.execute(new ProtocolServer(clientSocket));
             }
         } catch (IOException e) {
+            if (serverSocket != null) {
+                try {
+                    serverSocket.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
             e.printStackTrace();
         }
     }

@@ -3,8 +3,14 @@ package Client;
 import java.util.Scanner;
 
 public class MenuCliente {
-    public static String selectPizza(){
-        Scanner leitor = new Scanner(System.in);
+    private static Scanner leitor;
+
+    public MenuCliente() {
+        leitor = new Scanner(System.in);
+    }
+
+    public static String selectPizza() {
+        leitor = new Scanner(System.in);
         int sabor = -1;
 
         while (sabor == -1) {
@@ -26,7 +32,7 @@ public class MenuCliente {
             }
         }
 
-        switch (sabor){
+        switch (sabor) {
             case 1:
                 return "Frango";
             case 2:
@@ -38,9 +44,45 @@ public class MenuCliente {
         return "qualquer";
     }
 
-    public static String selectBebida(){
+    public static double selectMultiplicador() {
+        int multiplicador = -1;
+        leitor = new Scanner(System.in);
+
+        while (multiplicador == -1) {
+            System.out.println("\n1. Pequena (80% do valor)");
+            System.out.println("2. Média (100% do valor)");
+            System.out.println("3. Grande (135% do valor)");
+            System.out.println("4. Família (175% do valor)");
+
+            if (leitor.hasNextInt()) {
+                multiplicador = leitor.nextInt();
+                leitor.nextLine();
+
+                if (multiplicador < 1 || multiplicador > 4) {
+                    System.out.println("Pedido inválido. Digite um valor entre 1 e 4.");
+                    multiplicador = -1;
+                }
+            } else {
+                System.out.println("Pedido inválido. Digite um valor entre 1 e 4.");
+                leitor.nextLine();
+            }
+        }
+
+        switch (multiplicador) {
+            case 1:
+                return 0.8;
+            case 2:
+                return 1;
+            case 3:
+                return 1.35;
+            default:
+                return 1.75;
+        }
+    }
+
+    public static String selectBebida() {
         int bebida = -1;
-        Scanner leitor = new Scanner(System.in);
+        leitor = new Scanner(System.in);
 
         while (bebida == -1) {
             System.out.println("\n1. Suco R$ 6,00");
@@ -74,8 +116,8 @@ public class MenuCliente {
         }
     }
 
-    public static String selectPagamento(){
-        Scanner leitor = new Scanner(System.in);
+    public static String selectPagamento() {
+        leitor = new Scanner(System.in);
         int metodo = -1;
 
         while (metodo == -1) {
@@ -96,16 +138,17 @@ public class MenuCliente {
                 leitor.nextLine();
             }
         }
-            switch (metodo) {
-                case 1:
-                    return "Dinheiro";
-                case 2:
-                    return "Débito";
-                case 3:
-                    return "Crédito";
-                default:
-                    return "";
-            }
+
+        switch (metodo) {
+            case 1:
+                return "Dinheiro";
+            case 2:
+                return "Débito";
+            case 3:
+                return "Crédito";
+            default:
+                return "";
+        }
 
     }
 }
